@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_Home"
+        android:title="Home"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/empty"
+        android:title=""
+        />
+    <item
+        android:id="@+id/ic_Setting"
+        android:title="Setting"
+        android:icon="@drawable/ic_setting"/>
+
+
+</menu>

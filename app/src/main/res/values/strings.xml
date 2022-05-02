@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ImageCut</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_image_topic">Sample Image Topic</string>
+    <string name="sample_image">sample Image</string>
+    <string name="home">Home</string>
+    <string name="add_new_image">add new image</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="forgort_password">Forgort Password</string>
+    <string name="taken_image_photo">Taken image Photo</string>
+    <string name="title">Title</string>
+    <string name="save_imae_button">Save Imae Button</string>
+    <string name="annotate_text">Annotate Text</string>
+    <string name="no_text_was_found_in_this_image">No Text Was found in this Image</string>
+    <string name="speak_text">Speak text</string>
+    <string name="search_text">Search Text</string>
+</resources>
