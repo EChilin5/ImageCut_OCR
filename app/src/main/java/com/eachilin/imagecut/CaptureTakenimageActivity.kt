@@ -14,6 +14,7 @@ import android.text.Html
 import android.util.Log
 import android.widget.*
 import androidx.core.content.FileProvider
+import androidx.core.widget.doAfterTextChanged
 import com.eachilin.imagecut.databinding.ActivityCaptureTakenimageBinding
 import com.eachilin.imagecut.models.Post
 import com.eachilin.imagecut.models.User
@@ -57,7 +58,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
     private lateinit var ivbtnTalk : ImageButton
     private lateinit var etSearch : EditText
     private lateinit var etTitle : EditText
-    private lateinit var etImageText : TextView
+    private lateinit var etImageText : EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +69,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
         initView()
 
         tts = TextToSpeech(this, this)
+
 
         firestoreDb = FirebaseFirestore.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
@@ -80,9 +82,13 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
             speakOut()
         }
 
-        etSearch.setOnClickListener {
-            startHighlight()
-        }
+
+
+        etSearch.doAfterTextChanged { startHighlight() }
+
+//        etSearch.setOnClickListener {
+//            startHighlight()
+//        }
     }
 
     private fun startHighlight() {
@@ -90,7 +96,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
         var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
         var original = etImageText.text.toString()
         var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
-        etImageText.text = Html.fromHtml(modified)
+        etImageText.setText(Html.fromHtml(modified))
     }
 
     private fun initView() {
@@ -100,7 +106,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
         ivbtnTalk = binding.ivbtnPlayText
         etSearch = binding.etSearch
         etTitle = binding.etTitle
-        etImageText = binding.tvImageText
+        etImageText = binding.etImageText
 
     }
 
@@ -188,7 +194,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
         val result = recognizer.process(image)
             .addOnSuccessListener { visionText ->
-                etImageText.text = visionText.text
+                etImageText.setText(visionText.text)
 
             }
             .addOnFailureListener { e ->
@@ -204,18 +210,20 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
 
     override fun onInit(status: Int) {
-        if(status == TextToSpeech.SUCCESS){
+        if (status == TextToSpeech.SUCCESS) {
             val result = tts!!.setLanguage(Locale.US)
 
-            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED ){
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e(TAG, "The language is not supported")
-            }else{
+            } else {
                 ivbtnTalk.isEnabled = true
             }
-        }else{
+        } else {
             Log.e(TAG, "Failed to Initialize Data")
         }
     }
+
+
 
     override fun onDestroy() {
         if(tts != null){

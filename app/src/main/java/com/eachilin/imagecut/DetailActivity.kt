@@ -1,22 +1,30 @@
 package com.eachilin.imagecut
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
+import com.eachilin.imagecut.activity.MainActivity
 import com.eachilin.imagecut.databinding.ActivityDetailBinding
 import com.eachilin.imagecut.models.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import kotlin.collections.ArrayList
 
+
+enum class WindowSizeClass { COMPACT, MEDIUM, EXPANDED }
+
+
 private const val TAG = "DetailActivity"
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var binding : ActivityDetailBinding
     private lateinit var firestoreDb: FirebaseFirestore
@@ -26,10 +34,10 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var ivbtnSave : ImageButton
     private lateinit var ivbtnAnnotate : ImageButton
-    private lateinit var tvImageText : TextView
+    private lateinit var tvImageText : EditText
     private lateinit var ivbtnPlay : ImageButton
     private lateinit var etSearch : EditText
-    private lateinit var tvTitle : TextView
+    private lateinit var tvTitle : EditText
     private lateinit var postInfo : Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +45,19 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
+
+
+
+
+        tts = TextToSpeech(this, this)
+
+
+
         firestoreDb = FirebaseFirestore.getInstance()
         postInfo  = intent.getSerializableExtra("post") as Post
 
-        tvImageText.text = postInfo.imagedescription
-        tvTitle.text = postInfo.title
+        tvImageText.setText( postInfo.imagedescription)
+        tvTitle.setText(postInfo.title)
 
 
         tvImageText.setMovementMethod(ScrollingMovementMethod())
@@ -54,21 +70,44 @@ class DetailActivity : AppCompatActivity() {
             speakOut()
         }
 
+        etSearch.doAfterTextChanged {
+            startHighlight()
+        }
+
+    }
+
+
+    private fun startHighlight() {
+        var textToHighlight = etSearch.text.toString()
+        var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
+        var original = tvImageText.text.toString()
+        var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
+        tvImageText.setText(Html.fromHtml(modified))
     }
 
     private fun initView() {
         ivbtnSave = binding.ivbtnSaveDetails
         ivbtnAnnotate = binding.ivbtnAnnotateDetails
-        tvImageText = binding.tvImageTextDetails
+        tvImageText = binding.etImageTextDetails
         ivbtnPlay = binding.ivbtnPlayTextDetails
         etSearch = binding.etSearchDetails
-        tvTitle = binding.tvTitleDetails
+        tvTitle = binding.etTitleDetails
     }
 
     private fun updateInformation(){
-      // firestoreDb.collection("post").document(postInfo.id).update("imagedescription", "${postInfo.imagedescription} testing update feature")
+
+        var updatePost: Post = Post(postInfo.id, tvTitle.text.toString(), tvImageText.text.toString(), postInfo.image_url, System.currentTimeMillis(), postInfo.user)
+       firestoreDb.collection("post").document(postInfo.id.toString()).set(updatePost)
         Toast.makeText(this, "post have been update ${postInfo.id}", Toast.LENGTH_SHORT).show()
         Log.i(TAG, "${postInfo.id}")
+
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun delete(){
+        firestoreDb.collection("post").document(postInfo.id.toString()).delete()
     }
 
 
@@ -79,6 +118,7 @@ class DetailActivity : AppCompatActivity() {
 
 
 
+
     override fun onDestroy() {
         if(tts != null){
             tts!!.stop()
@@ -86,4 +126,20 @@ class DetailActivity : AppCompatActivity() {
         }
         super.onDestroy()
     }
+
+    override fun onInit(status: Int) {
+        if(status == TextToSpeech.SUCCESS){
+            val result = tts!!.setLanguage(Locale.US)
+
+            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED ){
+                Log.e(TAG, "The language is not supported")
+            }else{
+                ivbtnPlay.isEnabled = true
+            }
+        }else{
+            Log.e(TAG, "Failed to Initialize Data")
+        }
+    }
+
+
 }

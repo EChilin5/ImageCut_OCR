@@ -84,7 +84,16 @@ class HomeFragment : Fragment() {
 
         firestoreDb = FirebaseFirestore.getInstance()
 
-       firestoreDb.collection("users")
+        fetchData()
+
+        binding.flTakePhoto.setOnClickListener{
+            openCaptureImageActivity()
+        }
+
+    }
+
+    private fun fetchData() {
+        firestoreDb.collection("users")
             .document(FirebaseAuth.getInstance().currentUser?.uid as String)
             .get()
             .addOnSuccessListener { userSnapshot ->
@@ -99,7 +108,7 @@ class HomeFragment : Fragment() {
         var postReference =firestoreDb.collection("post")
             .limit(20)
             .orderBy("creation_time_ms", Query.Direction.DESCENDING )
-         postReference = postReference.whereEqualTo("user.username", "ea")
+        postReference = postReference.whereEqualTo("user.username", "ea")
         postReference.addSnapshotListener { snapshot, exception ->
             if(exception != null || snapshot == null){
                 Log.e(TAG, "exception occurred", exception)
@@ -115,33 +124,6 @@ class HomeFragment : Fragment() {
                 }
             }
             adapter.notifyDataSetChanged()
-        }
-
-//        postReference.addSnapshotListener { snapshot, exception ->
-//
-//
-//
-//
-//
-//            for(dc: DocumentChange in snapshot?.documentChanges ){
-//                if(dc.type == DocumentChange.Type.ADDED){
-//                    val retrieved : Post = dc.document.toObject()
-//                }
-//            }
-//
-////            var postList  = snapshot.toObjects(Post::class.java)
-////            post.clear()
-////            post.addAll(postList)
-////            adapter.notifyDataSetChanged()
-////
-////            for(document in postList){
-////                Log.i(TAG, "Document: ${document}")
-////            }
-//
-//        }
-
-        binding.flTakePhoto.setOnClickListener{
-            openCaptureImageActivity()
         }
 
     }
