@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="4dp"
     app:layout_constraintGuide_percent="1.0"
     tools:context=".DetailActivity">
 
@@ -15,24 +16,6 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.0" />
 
-    <EditText
-        android:id="@+id/etImageTextDetails"
-        android:layout_width="365dp"
-        android:layout_height="531dp"
-        android:layout_margin="4dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="textMultiLine"
-        android:lines="30"
-        android:padding="20dp"
-        android:scrollHorizontally="false"
-        android:text="No Name found"
-        app:layout_constraintBottom_toBottomOf="@id/DetailGuideLineEnd"
-        app:layout_constraintEnd_toEndOf="@id/DetailsGuideLinev2"
-        app:layout_constraintStart_toStartOf="@id/DetailGuidLineV1"
-        app:layout_constraintTop_toTopOf="@+id/DeatilGuide3"
-        app:layout_constraintVertical_bias="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/DetailGuide2"
@@ -42,57 +25,23 @@
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.10" />
 
-    <EditText
-        android:id="@+id/etTitleDetails"
-        android:layout_width="199dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="App Name"
-        app:layout_constraintStart_toStartOf="@id/DetailGuidLineV1"
-        app:layout_constraintTop_toTopOf="@id/DetailGuide1" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etTitleOutline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:hint="@string/appname"
+        app:layout_constraintBottom_toTopOf="@+id/DetailGuide2"
+        app:layout_constraintEnd_toStartOf="@+id/DetailGuideLineVmid"
+        app:layout_constraintStart_toStartOf="@+id/DetailGuidLineV1"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/ivbtnSaveDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/save_imae_button"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@id/DetailsGuideLinev2"
-        app:layout_constraintTop_toTopOf="@id/DetailGuide1"
-        app:srcCompat="@drawable/ic_save"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitleDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/ivbtnAnnotateDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/annotate_text"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivbtnSaveDetails"
-        app:layout_constraintTop_toTopOf="@id/DetailGuide1"
-        app:srcCompat="@drawable/ic_edit"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/ivbtnPlayTextDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/speak_text"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivbtnAnnotateDetails"
-        app:layout_constraintTop_toTopOf="@id/DetailGuide1"
-        app:srcCompat="@drawable/ic_play"
-        tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/DeatilGuide3"
@@ -100,22 +49,59 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.21" />
+        app:layout_constraintGuide_percent="0.19" />
 
-    <android.widget.EditText
-        android:id="@+id/etSearchDetails"
-        android:layout_width="356dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
+    <!--        android:id="@+id/etSearchDetails"-->
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etSearchDetailLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+
         android:hint="@string/search_text"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/DeatilGuide3"
-        app:layout_constraintEnd_toStartOf="@+id/DetailsGuideLinev2"
-        app:layout_constraintHorizontal_bias="0.618"
-        app:layout_constraintStart_toStartOf="@+id/DetailGuidLineV1"
+        app:layout_constraintEnd_toEndOf="@id/DetailsGuideLinev2"
+        app:layout_constraintStart_toStartOf="@id/DetailGuidLineV1"
         app:layout_constraintTop_toTopOf="@+id/DetailGuide2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:startIconDrawable="@drawable/ic_baseline_search_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etSearchLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/DetailGuideLineEnd"
+        app:layout_constraintEnd_toEndOf="@id/DetailsGuideLinev2"
+        app:layout_constraintStart_toStartOf="@id/DetailGuidLineV1"
+        app:layout_constraintTop_toTopOf="@+id/DeatilGuide3">
+
+        <EditText
+            android:id="@+id/etImageTextDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="30"
+            android:scrollHorizontally="false"
+            android:text="No Name found"
+            app:layout_constraintVertical_bias="0.4" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/DetailGuideLineEnd"
@@ -140,5 +126,47 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/DetailGuideLineVmid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.6" />
+
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/DetailGuide2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/ivbtnPlayTextDetails"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_play" />
+
+        <Button
+            android:id="@+id/ivbtnSaveDetails"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_save" />
+
+        <Button
+            android:id="@+id/ivbtnAnnotateDetails"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_delete" />
+
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

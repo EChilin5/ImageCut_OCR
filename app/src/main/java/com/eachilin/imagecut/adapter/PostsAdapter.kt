@@ -10,7 +10,7 @@ import com.eachilin.imagecut.databinding.ItemSnapshotBinding
 import com.eachilin.imagecut.models.Post
 
 
-class PostsAdapter(private val post:MutableList<Post>) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>(){
+class PostsAdapter(private val post: MutableList<Post>, var onFirebaseDeleteDoc: (String, Int) -> Unit) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>(){
 
     private var _binding : ItemSnapshotBinding? = null
     private val binding get() = _binding!!
@@ -25,6 +25,9 @@ class PostsAdapter(private val post:MutableList<Post>) : RecyclerView.Adapter<Po
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = post[position]
         holder.bind(post, binding)
+        binding.ivDelete.setOnClickListener {
+            onFirebaseDeleteDoc(post.id.toString(), position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,6 +37,7 @@ class PostsAdapter(private val post:MutableList<Post>) : RecyclerView.Adapter<Po
     inner class PostViewHolder(itemView: ItemSnapshotBinding) : RecyclerView.ViewHolder(itemView.root) {
         fun bind(post: Post, binding: ItemSnapshotBinding) {
             binding.tvContent.text = post.title
+
 
             binding.clSnapShot.setOnClickListener {
                 val intent  = Intent(itemView.context, DetailActivity::class.java)
@@ -46,6 +50,7 @@ class PostsAdapter(private val post:MutableList<Post>) : RecyclerView.Adapter<Po
                 .into(binding.ivSnapImage)
 
         }
+
 
     }
 

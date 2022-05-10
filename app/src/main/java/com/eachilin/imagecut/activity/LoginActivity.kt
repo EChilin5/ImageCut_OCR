@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.eachilin.imagecut.ForgotPasswordOverlay
 import com.eachilin.imagecut.R
+import com.eachilin.imagecut.SetUpProfile
 import com.eachilin.imagecut.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -57,6 +59,28 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+
+        btnSignUp.setOnClickListener {
+            openSignUp()
+        }
+
+        binding.tvHelp.setOnClickListener {
+            openFoodItem()
+        }
+    }
+
+    private fun openFoodItem() {
+
+        val dialog = ForgotPasswordOverlay()
+        val fm = this.supportFragmentManager
+        dialog.show(fm, "name")
+    }
+
+
+    private fun openSignUp() {
+        var intent = Intent(this, SetUpProfile::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun goHomeActivity() {

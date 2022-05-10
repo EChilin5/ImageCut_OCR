@@ -15,6 +15,7 @@ import android.util.Log
 import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.core.widget.doAfterTextChanged
+import com.eachilin.imagecut.activity.MainActivity
 import com.eachilin.imagecut.databinding.ActivityCaptureTakenimageBinding
 import com.eachilin.imagecut.models.Post
 import com.eachilin.imagecut.models.User
@@ -53,9 +54,9 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
     private var userText:String = ""
 
     private lateinit var ivCapturedImage : ImageView
-    private lateinit var ivbtnSave : ImageButton
-    private lateinit var ivbtnAnnotation :ImageButton
-    private lateinit var ivbtnTalk : ImageButton
+    private lateinit var ivbtnSave : Button
+    private lateinit var ivbtnAnnotation :Button
+    private lateinit var ivbtnTalk : Button
     private lateinit var etSearch : EditText
     private lateinit var etTitle : EditText
     private lateinit var etImageText : EditText
@@ -82,6 +83,10 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
             speakOut()
         }
 
+        ivbtnAnnotation.setOnClickListener {
+            closeActivity()
+        }
+
 
 
         etSearch.doAfterTextChanged { startHighlight() }
@@ -89,6 +94,12 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 //        etSearch.setOnClickListener {
 //            startHighlight()
 //        }
+    }
+
+    private fun closeActivity() {
+        var intent: Intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun startHighlight() {

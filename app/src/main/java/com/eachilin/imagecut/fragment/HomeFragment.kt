@@ -18,7 +18,6 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eachilin.imagecut.CaptureTakenimageActivity
-import com.eachilin.imagecut.R
 import com.eachilin.imagecut.adapter.PostsAdapter
 import com.eachilin.imagecut.databinding.FragmentHomeBinding
 import com.eachilin.imagecut.models.Post
@@ -28,7 +27,6 @@ import com.google.firebase.firestore.*
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.coroutines.awaitAll
 import java.io.File
 
 private const val TAG = "CreateActivity"
@@ -78,7 +76,7 @@ class HomeFragment : Fragment() {
 
 
         post = mutableListOf()
-        adapter = PostsAdapter(post)
+        adapter = PostsAdapter(post, ::deleteFireStoreDoc)
         binding.rvPicturesSnap.adapter = adapter
         binding.rvPicturesSnap.layoutManager = LinearLayoutManager(context)
 
@@ -184,6 +182,22 @@ class HomeFragment : Fragment() {
                 Log.e(TAG, e.toString())
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun deleteFireStoreDoc(postId: String, position: Int){
+        firestoreDb.collection("post")
+            .document(postId).delete().addOnCompleteListener { task->
+                if(task.isSuccessful){
+                    adapter.notifyItemRemoved(position)
+                    post.removeAt(position)
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+
+                }else{
+                    Toast.makeText(context, "Unable to Delete", Toast.LENGTH_SHORT).show()
+
+                }
+
+        }
     }
 
 

@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ImageCut">
         <activity
+            android:name=".SetUpProfile"
+            android:exported="true" />
+        <activity
             android:name=".DetailActivity"
             android:exported="true" />
         <activity
@@ -49,7 +52,7 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

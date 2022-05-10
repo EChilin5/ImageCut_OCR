@@ -7,10 +7,7 @@ import android.speech.tts.TextToSpeech
 import android.text.Html
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import com.eachilin.imagecut.activity.MainActivity
 import com.eachilin.imagecut.databinding.ActivityDetailBinding
@@ -32,10 +29,10 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var tts : TextToSpeech? = null
 
 
-    private lateinit var ivbtnSave : ImageButton
-    private lateinit var ivbtnAnnotate : ImageButton
+    private lateinit var ivbtnSave : Button
+    private lateinit var ivbtnAnnotate : Button
     private lateinit var tvImageText : EditText
-    private lateinit var ivbtnPlay : ImageButton
+    private lateinit var ivbtnPlay : Button
     private lateinit var etSearch : EditText
     private lateinit var tvTitle : EditText
     private lateinit var postInfo : Post
@@ -74,6 +71,24 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             startHighlight()
         }
 
+        ivbtnAnnotate.setOnClickListener {
+            deleteItem()
+        }
+
+    }
+
+    private fun deleteItem() {
+        firestoreDb.collection("post")
+            .document(postInfo.id.toString()).delete()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Item is now deleted", Toast.LENGTH_SHORT).show()
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+            }
     }
 
 

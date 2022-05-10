@@ -7,7 +7,6 @@
     <string name="home">Home</string>
     <string name="add_new_image">add new image</string>
     <string name="password">password</string>
-    <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="forgort_password">Forgort Password</string>
@@ -18,4 +17,8 @@
     <string name="no_text_was_found_in_this_image">No Text Was found in this Image</string>
     <string name="speak_text">Speak text</string>
     <string name="search_text">Search Text</string>
+    <string name="appname">AppName</string>
+    <string name="button">Button</string>
+    <string name="set_up_account">Set Up Account</string>
+    <string name="email">Email</string>
 </resources>
