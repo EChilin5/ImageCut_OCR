@@ -39,7 +39,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitleDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +71,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearchDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,8 +99,10 @@
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="30"
+            android:longClickable="true"
             android:scrollHorizontally="false"
             android:text="No Name found"
+            android:textIsSelectable="true"
             app:layout_constraintVertical_bias="0.4" />
 
     </com.google.android.material.textfield.TextInputLayout>

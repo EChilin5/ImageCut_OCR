@@ -39,20 +39,24 @@ class SetUpProfile : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
 
-            if (etEmail.text.isEmpty() || etConfirmPassword.text.isEmpty() || etConfirmPassword.text.isEmpty()) {
+            var email = etEmail.text.trim().toString()
+            var password = etPassword.text.trim().toString()
+            var confirm = etConfirmPassword.text.trim().toString()
+
+            if (email.isEmpty() || confirm.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Missing Infromation", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             btnSubmit.isEnabled = false
 
-            if (etConfirmPassword.text.toString() == etPassword.text.toString() && etEmail.text.contains(
+            if (password == confirm && email.contains(
                     "@"
                 )
             ) {
-                var isNewUser: Boolean = checkForValidEmail(etEmail.text.toString())
+                var isNewUser: Boolean = checkForValidEmail(email)
 
                 if (isNewUser) {
-                    createUserAccount(etEmail.text.toString(), etPassword.text.toString())
+                    createUserAccount(email,password)
                 } else {
                     Toast.makeText(
                         this,

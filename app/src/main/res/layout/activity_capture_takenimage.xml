@@ -34,7 +34,8 @@
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +54,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,6 +142,7 @@
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="30"
+            android:longClickable="true"
             android:scrollHorizontally="false"
             android:text="No Name found"
             app:layout_constraintVertical_bias="0.4" />

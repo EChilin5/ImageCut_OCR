@@ -142,7 +142,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
                 }
                 currentUserName = currentUserName.dropLast(10)
 
-                val user = User(currentUserName)
+                val user = User("", currentUserName)
                 val post = Post("", etTitle.text.toString(), etImageText.text.toString(),
                     downloadUrlTask.result.toString(), System.currentTimeMillis(), user)
 
@@ -153,6 +153,9 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
                     Toast.makeText(this, "failed ${postCreationTask.exception} ", Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
 

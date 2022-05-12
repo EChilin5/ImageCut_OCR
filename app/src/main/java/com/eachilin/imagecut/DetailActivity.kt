@@ -75,6 +75,19 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             deleteItem()
         }
 
+        tvImageText.setOnClickListener {
+            tvImageText.showSoftInputOnFocus = true
+        }
+
+        tvImageText.setOnClickListener {
+            tvImageText.showSoftInputOnFocus = false
+        }
+
+
+    }
+
+    private fun highlightToClipBoard(start: Int, end: Int) {
+
     }
 
     private fun deleteItem() {

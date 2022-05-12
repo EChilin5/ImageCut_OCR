@@ -39,8 +39,8 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             btnLogin.isEnabled = false
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
+            val email = etEmail.text.trim().toString()
+            val password = etPassword.text.trim().toString()
 
             if(email.isBlank() || password.isBlank()){
                 Toast.makeText(this, "Email password can not be empty", Toast.LENGTH_LONG).show()
