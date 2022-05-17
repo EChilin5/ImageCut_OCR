@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/sample_image_topic"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/ItemGuideLine2"
             app:layout_constraintEnd_toStartOf="@+id/ItemGuideLineVEnd"

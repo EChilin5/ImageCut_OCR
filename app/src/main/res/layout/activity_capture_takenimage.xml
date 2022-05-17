@@ -25,6 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/app_name"
+        app:boxStrokeColor="@color/teal_200"
+        app:hintTextColor="@color/teal_200"
         app:layout_constraintBottom_toTopOf="@+id/CaptureGL2"
         app:layout_constraintEnd_toEndOf="@id/CaptureGLvEnd"
         app:layout_constraintStart_toStartOf="@+id/CaptureGLv1"
@@ -33,7 +35,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:layout_margin="5dp"
             android:longClickable="true" />
 
@@ -45,6 +48,9 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:hint="@string/search_text"
+        app:boxStrokeColor="@color/teal_200"
+        app:hintTextColor="@color/teal_200"
+
         app:layout_constraintBottom_toTopOf="@+id/CaptureGL3"
         app:layout_constraintEnd_toEndOf="@id/CaptureGLvEnd"
         app:layout_constraintStart_toStartOf="@id/CaptureGLv0"
@@ -54,7 +60,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -127,6 +134,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="5dp"
+        app:boxStrokeColor="@color/teal_200"
+        app:hintTextColor="@color/teal_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/CaptureGLv0"

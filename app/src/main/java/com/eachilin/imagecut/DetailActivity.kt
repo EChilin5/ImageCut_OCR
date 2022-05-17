@@ -86,9 +86,7 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     }
 
-    private fun highlightToClipBoard(start: Int, end: Int) {
 
-    }
 
     private fun deleteItem() {
         firestoreDb.collection("post")
@@ -107,8 +105,10 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun startHighlight() {
         var textToHighlight = etSearch.text.toString()
+        textToHighlight = textToHighlight.lowercase()
         var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
         var original = tvImageText.text.toString()
+        original = original.lowercase()
         var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
         tvImageText.setText(Html.fromHtml(modified))
     }

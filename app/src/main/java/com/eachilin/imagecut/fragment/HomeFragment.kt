@@ -14,8 +14,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eachilin.imagecut.CaptureTakenimageActivity
 import com.eachilin.imagecut.adapter.PostsAdapter
@@ -50,6 +52,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var post : MutableList<Post>
     private lateinit var adapter : PostsAdapter
+    private lateinit var etSearch : EditText
 
     private var signedInUser : User? = null
 
@@ -81,11 +84,36 @@ class HomeFragment : Fragment() {
         binding.rvPicturesSnap.layoutManager = LinearLayoutManager(context)
 
         firestoreDb = FirebaseFirestore.getInstance()
+        etSearch = binding.etSearchDetails
 
-        fetchData()
+        if(post.isEmpty()){
+            fetchData()
+        }
 
         binding.flTakePhoto.setOnClickListener{
             openCaptureImageActivity()
+        }
+        etSearch.doAfterTextChanged { task->
+            var text= task
+
+            val temp = mutableListOf<Post>()
+
+            if(text?.isNotEmpty() == true){
+                for (postEntry in post){
+                    var title = postEntry.title.lowercase()
+                    if(title.contains(text)){
+                        temp.add(postEntry)
+                    }
+                }
+            }
+            if (text != null) {
+                if(text.isEmpty()){
+                    binding.rvPicturesSnap.adapter =  PostsAdapter(post, ::deleteFireStoreDoc)
+                }else{
+                    binding.rvPicturesSnap.adapter =  PostsAdapter(temp, ::deleteFireStoreDoc)
+
+                }
+            }
         }
 
     }
@@ -117,7 +145,6 @@ class HomeFragment : Fragment() {
                 if (dc.type == DocumentChange.Type.ADDED) {
 
                     val postItem: Post = dc.document.toObject(Post::class.java)
-                    Toast.makeText(context, "id# ${postItem.id}", Toast.LENGTH_SHORT).show()
                     post.add(postItem)
                 }
             }

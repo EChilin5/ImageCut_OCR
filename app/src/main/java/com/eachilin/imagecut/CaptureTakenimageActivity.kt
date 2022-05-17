@@ -104,8 +104,10 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
     private fun startHighlight() {
         var textToHighlight = etSearch.text.toString()
+        textToHighlight = textToHighlight.lowercase()
         var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
         var original = etImageText.text.toString()
+        original = original.lowercase()
         var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
         etImageText.setText(Html.fromHtml(modified))
     }

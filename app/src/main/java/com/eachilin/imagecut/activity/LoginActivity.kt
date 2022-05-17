@@ -65,11 +65,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvHelp.setOnClickListener {
-            openFoodItem()
+            openResetPassword()
         }
     }
 
-    private fun openFoodItem() {
+    private fun openResetPassword() {
 
         val dialog = ForgotPasswordOverlay()
         val fm = this.supportFragmentManager

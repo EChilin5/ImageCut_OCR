@@ -26,10 +26,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.ic_Home ->openFragment(HomeFragment)
-                R.id.ic_Setting -> openFragment(SettingFragment)
+                R.id.ic_Home -> {
+                    openFragment(HomeFragment)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.ic_Setting -> {
+                    openFragment(SettingFragment)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else-> false
             }
-            true
+
         }
 
     }

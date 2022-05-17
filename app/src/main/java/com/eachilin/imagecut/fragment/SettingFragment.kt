@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import com.eachilin.imagecut.ForgotPasswordOverlay
 import com.eachilin.imagecut.R
 import com.eachilin.imagecut.activity.LoginActivity
 import com.eachilin.imagecut.databinding.FragmentSettingBinding
@@ -21,6 +23,7 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var btnLogOut : Button
+    private lateinit var tvResetPassword:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,8 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnLogOut = binding.btnSignOut
+        tvResetPassword = binding.tvResetPassword
+
         btnLogOut.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent  = Intent(context, LoginActivity::class.java)
@@ -48,6 +53,19 @@ class SettingFragment : Fragment() {
             activity?.finish()
         }
 
+        tvResetPassword.setOnClickListener {
+            openResetPassword()
+        }
+
+    }
+
+    private fun openResetPassword() {
+
+        val dialog = ForgotPasswordOverlay()
+        val fm = activity?.supportFragmentManager
+        if (fm != null) {
+            dialog.show(fm, "name")
+        }
     }
 
 }

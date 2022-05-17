@@ -20,16 +20,40 @@
         app:layout_constraintTop_toBottomOf="@id/HomeGuideLine2"
         app:layout_constraintVertical_bias="0" />
 
-    <TextView
-        android:id="@+id/Home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="3dp"
-        android:text="@string/home"
-        android:textSize="20sp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/default_background"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/HomeGuideLine2"
+        app:layout_constraintEnd_toEndOf="@id/HomeGuideLineV2"
         app:layout_constraintStart_toStartOf="@id/HomeGuideLineV1"
-        app:layout_constraintTop_toTopOf="@+id/HomeGuideLine1" />
+        app:layout_constraintTop_toTopOf="@id/HomeGuideLine1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etSearchDetailLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_search_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchDetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:longClickable="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/flTakePhoto"
@@ -59,7 +83,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.07" />
+        app:layout_constraintGuide_percent="0.11" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/HomeGuideLine3"
@@ -84,4 +108,5 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
