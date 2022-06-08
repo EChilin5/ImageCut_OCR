@@ -24,15 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         openFragment(HomeFragment)
 
-        binding.bottomNavBar.setOnNavigationItemSelectedListener {
+        binding.bottomNavBar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.ic_Home -> {
                     openFragment(HomeFragment)
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
                 R.id.ic_Setting -> {
                     openFragment(SettingFragment)
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
                 else-> false
             }

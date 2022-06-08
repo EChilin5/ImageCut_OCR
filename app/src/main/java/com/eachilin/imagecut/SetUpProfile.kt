@@ -16,7 +16,6 @@ class SetUpProfile : AppCompatActivity() {
 
 
     private lateinit var binding:ActivitySetUpProfileBinding
-    private lateinit var etName : EditText
     private lateinit var etEmail : EditText
     private lateinit var etPassword : EditText
     private lateinit var etConfirmPassword : EditText
@@ -39,9 +38,9 @@ class SetUpProfile : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
 
-            var email = etEmail.text.trim().toString()
-            var password = etPassword.text.trim().toString()
-            var confirm = etConfirmPassword.text.trim().toString()
+            val email = etEmail.text.trim().toString()
+            val password = etPassword.text.trim().toString()
+            val confirm = etConfirmPassword.text.trim().toString()
 
             if (email.isEmpty() || confirm.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Missing Infromation", Toast.LENGTH_LONG).show()
@@ -93,7 +92,6 @@ class SetUpProfile : AppCompatActivity() {
     }
 
     private fun  checkForValidEmail(email:String, password:String) {
-        var isValidUser: Boolean = false
         val auth = FirebaseAuth.getInstance()
         auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task->
             val isNewUser:Boolean = task.result.signInMethods!!.isEmpty()

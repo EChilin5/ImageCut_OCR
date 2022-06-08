@@ -1,7 +1,6 @@
 package com.eachilin.imagecut.models
 
 import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.PropertyName
 import java.io.Serializable
 

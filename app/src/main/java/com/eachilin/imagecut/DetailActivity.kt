@@ -16,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
-enum class WindowSizeClass { COMPACT, MEDIUM, EXPANDED }
 
 
 private const val TAG = "DetailActivity"
@@ -93,7 +92,7 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     Toast.makeText(this, "Item is now deleted", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -105,10 +104,10 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun startHighlight() {
         var textToHighlight = etSearch.text.toString()
         textToHighlight = textToHighlight.lowercase()
-        var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
+        val replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
         var original = tvImageText.text.toString()
         original = original.lowercase()
-        var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
+        val modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
         tvImageText.setText(Html.fromHtml(modified))
     }
 
@@ -123,19 +122,14 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun updateInformation(){
 
-        var updatePost: Post = Post(postInfo.id, tvTitle.text.toString(), tvImageText.text.toString(), postInfo.image_url, System.currentTimeMillis(), postInfo.user)
+        val updatePost = Post(postInfo.id, tvTitle.text.toString(), tvImageText.text.toString(), postInfo.image_url, System.currentTimeMillis(), postInfo.user)
        firestoreDb.collection("post").document(postInfo.id.toString()).set(updatePost)
         Log.i(TAG, "${postInfo.id}")
 
-        var intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
-
-    private fun delete(){
-        firestoreDb.collection("post").document(postInfo.id.toString()).delete()
-    }
-
 
     private fun speakOut(){
         val text = tvImageText.text.toString()

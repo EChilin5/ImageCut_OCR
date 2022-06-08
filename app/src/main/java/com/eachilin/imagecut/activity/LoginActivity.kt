@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.eachilin.imagecut.ForgotPasswordOverlay
-import com.eachilin.imagecut.R
 import com.eachilin.imagecut.SetUpProfile
 import com.eachilin.imagecut.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -78,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun openSignUp() {
-        var intent = Intent(this, SetUpProfile::class.java)
+        val intent = Intent(this, SetUpProfile::class.java)
         startActivity(intent)
         finish()
     }

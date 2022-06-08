@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.eachilin.imagecut.ForgotPasswordOverlay
-import com.eachilin.imagecut.R
 import com.eachilin.imagecut.activity.LoginActivity
 import com.eachilin.imagecut.databinding.FragmentSettingBinding
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class SettingFragment : Fragment() {
@@ -25,15 +23,12 @@ class SettingFragment : Fragment() {
     private lateinit var btnLogOut : Button
     private lateinit var tvResetPassword:TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 

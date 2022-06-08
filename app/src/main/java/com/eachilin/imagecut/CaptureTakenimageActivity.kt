@@ -34,7 +34,6 @@ private const val TAG = "CaptureTakenimageActivity"
 private const val PICK_PHOTO_CODE = 1234
 private lateinit var photoFile: File
 
-private const val REQUEST_CODE = 42
 
 
 class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -46,11 +45,9 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
 
     private var FILE_NAME ="photo.jpg"
-    private var photoUri : Uri?= null
     private var imagePath :String? = null
 
     private var takenImage : Bitmap? = null
-    private var userText:String = ""
 
     private lateinit var ivCapturedImage : ImageView
     private lateinit var ivbtnSave : Button
@@ -96,7 +93,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
     }
 
     private fun closeActivity() {
-        var intent: Intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -104,10 +101,10 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
     private fun startHighlight() {
         var textToHighlight = etSearch.text.toString()
         textToHighlight = textToHighlight.lowercase()
-        var replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
+        val replaceWith = "<span style='background-color:yellow'>$textToHighlight</span>"
         var original = etImageText.text.toString()
         original = original.lowercase()
-        var modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
+        val modified = original.replace(oldValue = textToHighlight, newValue = replaceWith)
         etImageText.setText(Html.fromHtml(modified))
     }
 
@@ -153,7 +150,7 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
                     Toast.makeText(this, "failed ${postCreationTask.exception} ", Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
