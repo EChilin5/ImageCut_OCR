@@ -149,13 +149,14 @@
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:gravity="top|left"
+            android:hint="@string/no_name_found"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:lines="30"
             android:longClickable="true"
             android:scrollHorizontally="false"
-            android:text="@string/no_name_found"
             app:layout_constraintVertical_bias="0.4"
-            android:importantForAutofill="no" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
