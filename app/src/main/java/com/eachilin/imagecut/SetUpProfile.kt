@@ -53,17 +53,9 @@ class SetUpProfile : AppCompatActivity() {
                     "@"
                 )
             ) {
-                var isNewUser: Boolean = checkForValidEmail(email)
+                checkForValidEmail(email, password)
 
-                if (isNewUser) {
-                    createUserAccount(email,password)
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Email already exist, Please use a different email",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+
 
             } else {
                 btnSubmit.isEnabled = true
@@ -100,18 +92,18 @@ class SetUpProfile : AppCompatActivity() {
 
     }
 
-    private fun  checkForValidEmail(email:String) :Boolean{
+    private fun  checkForValidEmail(email:String, password:String) {
         var isValidUser: Boolean = false
         val auth = FirebaseAuth.getInstance()
         auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task->
-            var isNewUser:Boolean = task.result.signInMethods?.isEmpty() == true;
+            val isNewUser:Boolean = task.result.signInMethods!!.isEmpty()
 
             if(isNewUser){
-                isValidUser = true
+                createUserAccount(email, password)
+            }else{
+                Toast.makeText(this, "Can not create account", Toast.LENGTH_SHORT).show()
             }
         }
-
-        return isValidUser
 
     }
 }

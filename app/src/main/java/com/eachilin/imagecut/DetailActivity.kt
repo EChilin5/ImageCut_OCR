@@ -14,7 +14,6 @@ import com.eachilin.imagecut.databinding.ActivityDetailBinding
 import com.eachilin.imagecut.models.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 enum class WindowSizeClass { COMPACT, MEDIUM, EXPANDED }
@@ -126,7 +125,6 @@ class DetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         var updatePost: Post = Post(postInfo.id, tvTitle.text.toString(), tvImageText.text.toString(), postInfo.image_url, System.currentTimeMillis(), postInfo.user)
        firestoreDb.collection("post").document(postInfo.id.toString()).set(updatePost)
-        Toast.makeText(this, "post have been update ${postInfo.id}", Toast.LENGTH_SHORT).show()
         Log.i(TAG, "${postInfo.id}")
 
         var intent = Intent(this, MainActivity::class.java)

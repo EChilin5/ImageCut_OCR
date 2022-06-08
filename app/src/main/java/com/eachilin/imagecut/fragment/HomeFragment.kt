@@ -15,8 +15,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eachilin.imagecut.CaptureTakenimageActivity
@@ -26,10 +28,15 @@ import com.eachilin.imagecut.models.Post
 import com.eachilin.imagecut.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.io.File
+import com.google.firebase.storage.StorageReference
+
+
+
 
 private const val TAG = "CreateActivity"
 private const val PICK_PHOTO_CODE = 1234
@@ -40,6 +47,7 @@ private const val REQUEST_CODE = 42
 
 class HomeFragment : Fragment() {
 
+    private lateinit var postListener: ListenerRegistration
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -56,6 +64,10 @@ class HomeFragment : Fragment() {
 
     private var signedInUser : User? = null
 
+    private lateinit var tvNotFoundTitle : TextView
+    private lateinit var ivDataNotFound : TextView
+    private lateinit var tvNoteActionDesc : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -65,7 +77,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -119,23 +131,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchData() {
-        firestoreDb.collection("users")
-            .document(FirebaseAuth.getInstance().currentUser?.uid as String)
-            .get()
-            .addOnSuccessListener { userSnapshot ->
-                signedInUser = userSnapshot.toObject(User::class.java)
-                Log.i(TAG, "signed in user : ${signedInUser?.username}")
-            }
-            .addOnFailureListener {  exception ->
-                Log.i(TAG, "Failure fetching signed in user", exception)
-            }
+        val email = getEmail()
+        Log.e(TAG, "$email")
 
-        Log.i(TAG, "${signedInUser?.username} found")
         var postReference =firestoreDb.collection("post")
-            .limit(20)
+
             .orderBy("creation_time_ms", Query.Direction.DESCENDING )
-        postReference = postReference.whereEqualTo("user.username", "ea")
-        postReference.addSnapshotListener { snapshot, exception ->
+        postReference = postReference.whereEqualTo("user.username", email)
+       postListener =  postReference.addSnapshotListener { snapshot, exception ->
             if(exception != null || snapshot == null){
                 Log.e(TAG, "exception occurred", exception)
                 return@addSnapshotListener
@@ -146,10 +149,33 @@ class HomeFragment : Fragment() {
 
                     val postItem: Post = dc.document.toObject(Post::class.java)
                     post.add(postItem)
+                    Log.e(TAG, "$postItem")
                 }
             }
+            Log.e(TAG, "testing present ")
+            if(post.isNotEmpty()){
+                    clearDeafult(false)
+
+            }
+
             adapter.notifyDataSetChanged()
         }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        postListener.remove()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        postListener.remove()
+    }
+
+    private fun getEmail(): String {
+        val auth = FirebaseAuth.getInstance()
+        return auth.currentUser?.email.toString()
 
     }
 
@@ -211,13 +237,29 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun deleteFireStoreDoc(postId: String, position: Int){
+    private fun deleteFireStoreDoc(postId: String, position: Int, imageLink:String){
+
+        val photoRef = FirebaseStorage.getInstance()
+        photoRef.getReferenceFromUrl(imageLink).delete().addOnCompleteListener { task->
+            if(task.isSuccessful){
+                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+
+            }else{
+                Toast.makeText(context, "Unable to Delete", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+
+
         firestoreDb.collection("post")
             .document(postId).delete().addOnCompleteListener { task->
                 if(task.isSuccessful){
                     adapter.notifyItemRemoved(position)
                     post.removeAt(position)
                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                    if(post.isEmpty()){
+                        clearDeafult(true)
+                    }
 
                 }else{
                     Toast.makeText(context, "Unable to Delete", Toast.LENGTH_SHORT).show()
@@ -227,6 +269,18 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun clearDeafult(status: Boolean){
+
+            binding.tvNotFoundTitle.isVisible = status
+            binding.tvNotFoundTitle.isEnabled = status
+
+            binding.ivDataNotFound.isVisible = status
+            binding.ivDataNotFound.isEnabled = status
+            binding.tvNoteActionDesc.isVisible = status
+            binding.tvNoteActionDesc.isEnabled = status
+
+
+    }
 
 
 

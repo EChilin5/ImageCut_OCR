@@ -37,14 +37,14 @@ class ForgotPasswordOverlay : DialogFragment() {
 
         binding.btnResetEmail.setOnClickListener {
 
-            val emailAddress: String = binding.etResetPassword.text.toString()
+            val emailAddress: String = binding.etResetPassword.text.toString().trim()
 
             if(emailAddress.isNotEmpty() && emailAddress.contains("@")) {
                 Firebase.auth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "Email sent.")
-                            Toast.makeText(context, "Email has been sent", Toast.LENGTH_LONG).show()
+                            Toast.makeText(view.context, "Email has been sent", Toast.LENGTH_LONG).show()
                         } else {
                             Log.d(TAG, "Email can not be found")
                         }

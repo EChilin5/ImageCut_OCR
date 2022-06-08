@@ -94,6 +94,14 @@
         app:layout_constraintGuide_percent="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHome4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/HomeGuideLineV1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,5 +116,44 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="1.0" />
+
+    <TextView
+        android:id="@+id/tvNotFoundTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:outlineProvider="none"
+        android:text="TIO CR Notes Not Found"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/glHome4" />
+
+    <ImageView
+        android:id="@+id/ivDataNotFound"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/saly_19_"
+        app:layout_constraintBottom_toTopOf="@id/glHome4"
+        app:layout_constraintEnd_toEndOf="@id/HomeGuideLineV2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/HomeGuideLineV1"
+        app:layout_constraintTop_toTopOf="@+id/HomeGuideLine2" />
+
+    <TextView
+        android:id="@+id/tvNoteActionDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="Please Add Notes by selecting the green button"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotFoundTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

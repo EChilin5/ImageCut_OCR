@@ -19,9 +19,8 @@ import com.eachilin.imagecut.activity.MainActivity
 import com.eachilin.imagecut.databinding.ActivityCaptureTakenimageBinding
 import com.eachilin.imagecut.models.Post
 import com.eachilin.imagecut.models.User
-import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.mlkit.vision.common.InputImage
@@ -123,7 +122,14 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
     }
 
+    private fun getEmail(): String {
+        val auth = FirebaseAuth.getInstance()
+        return auth.currentUser?.email.toString()
+
+    }
+
     private fun uploadStorage() {
+        val email = getEmail()
         val photoReference = storageReference.child("images/${System.currentTimeMillis()}photo.jpg")
         val file = Uri.fromFile(File(photoFile.absoluteFile.toString()))
         photoReference.putFile(file)
@@ -134,17 +140,9 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
             }.continueWithTask { downloadUrlTask ->
 
-                val userName = Firebase.auth.currentUser
-                var currentUserName = ""
-                userName?.let {
-                    for (profile in it.providerData) {
-                        // Id of the provider (ex: google.com)
-                        currentUserName = profile.email.toString()
-                    }
-                }
-                currentUserName = currentUserName.dropLast(10)
 
-                val user = User("", currentUserName)
+
+                val user = User("", email)
                 val post = Post("", etTitle.text.toString(), etImageText.text.toString(),
                     downloadUrlTask.result.toString(), System.currentTimeMillis(), user)
 
@@ -197,7 +195,6 @@ class CaptureTakenimageActivity : AppCompatActivity(), TextToSpeech.OnInitListen
 
             ivCapturedImage.setImageBitmap(takenImage)
             ivCapturedImage.rotation = 90F
-//            ivImageText.setImageBitmap(takenImage)
             mlAction()
         }else{
             super.onActivityResult(requestCode, resultCode, data)
