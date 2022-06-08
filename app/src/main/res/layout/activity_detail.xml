@@ -112,7 +112,8 @@
             android:longClickable="true"
             android:scrollHorizontally="false"
             android:textIsSelectable="true"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.4"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
