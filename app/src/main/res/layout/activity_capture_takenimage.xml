@@ -153,8 +153,9 @@
             android:lines="30"
             android:longClickable="true"
             android:scrollHorizontally="false"
-            android:text="No Name found"
-            app:layout_constraintVertical_bias="0.4" />
+            android:text="@string/no_name_found"
+            app:layout_constraintVertical_bias="0.4"
+            android:importantForAutofill="no" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TIO CR</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_image_topic">Sample Image Topic</string>
     <string name="sample_image">sample Image</string>
@@ -21,5 +20,20 @@
     <string name="button">Button</string>
     <string name="set_up_account">Set Up Account</string>
     <string name="email">Email</string>
+    <string name="no_name_found">No Name found</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <string name="reset">Reset</string>
+    <string name="enter_email">Enter Email</string>
     <string name="search">Search</string>
+    <string name="tio_cr_notes_not_found">TIO CR Notes Not Found</string>
+    <string name="please_add_notes_by_selecting_the_green_button">Please Add Notes by selecting the green button</string>
+    <string name="settings">Settings</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="contact_us_at_chill_dev03_gmail_com">Contact us at chill.dev03@gmail.com</string>
+    <string name="tio_ocr_2022">TIO OCR @ 2022</string>
+    <string name="version_1_0">Version 1.0</string>
+    <string name="no_info_found">no info found</string>
 </resources>
