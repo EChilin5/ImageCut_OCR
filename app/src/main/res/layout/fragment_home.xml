@@ -119,15 +119,17 @@
 
     <TextView
         android:id="@+id/tvNotFoundTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center"
         android:outlineProvider="none"
         android:text="@string/tio_cr_notes_not_found"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/glHome4" />
 
@@ -148,6 +150,8 @@
         android:id="@+id/tvNoteActionDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:elevation="4dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"

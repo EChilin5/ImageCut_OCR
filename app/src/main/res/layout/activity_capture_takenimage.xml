@@ -24,7 +24,7 @@
         android:id="@+id/etTitleLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/app_name"
+        android:hint="@string/name"
         app:boxStrokeColor="@color/teal_200"
         app:hintTextColor="@color/teal_200"
         app:layout_constraintBottom_toTopOf="@+id/CaptureGL2"
@@ -36,8 +36,8 @@
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:layout_margin="5dp"
+            android:background="@color/white"
             android:longClickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +149,7 @@
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:gravity="top|left"
-            android:hint="@string/no_name_found"
+            android:hint="@string/image_text"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:lines="30"

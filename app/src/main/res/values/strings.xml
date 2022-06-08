@@ -36,4 +36,6 @@
     <string name="tio_ocr_2022">TIO OCR @ 2022</string>
     <string name="version_1_0">Version 1.0</string>
     <string name="no_info_found">no info found</string>
+    <string name="name">Name</string>
+    <string name="image_text">Image Text</string>
 </resources>
